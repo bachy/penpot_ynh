@@ -24,12 +24,15 @@ ynh_abort_if_errors
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
+allow_demo_users=$YNH_APP_ARG_PENPOT_ALLOW_DEMO_USERS
+registration_enabled=$YNH_APP_ARG_PENPOT_REGISTRATION_ENABLED
+demo_warning=$YNH_APP_ARG_PENPOT_DEMO_WARNING
+telemetry_enabled=$YNH_APP_ARG_PENPOT_TELEMETRY_ENABLED
+
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
-language=$YNH_APP_ARG_LANGUAGE
 admin=$YNH_APP_ARG_ADMIN
-password=$YNH_APP_ARG_PASSWORD
 
 ### If it's a multi-instance app, meaning it can be installed several times independently
 ### The id of the app as stated in the manifest is available as $YNH_APP_ID
@@ -69,9 +72,15 @@ ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 #=================================================
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
+
+ynh_app_setting_set --app=$app --key=allow_demo_users --value=$allow_demo_users
+ynh_app_setting_set --app=$app --key=registration_enabled --value=$registration_enabled
+ynh_app_setting_set --app=$app --key=demo_warning --value=$demo_warning
+ynh_app_setting_set --app=$app --key=telemetry_enabled --value=$telemetry_enabled
+
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
-ynh_app_setting_set --app=$app --key=language --value=$language
+ynh_app_setting_set --app=$app --key=is_public --value=$is_public
 ynh_app_setting_set --app=$app --key=admin --value=$admin
 
 #=================================================
